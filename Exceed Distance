@@ -1,0 +1,24 @@
+void Exceed_distance(long distance){
+	  
+	if(distance >= 100 ){
+		int digit ;
+		int i ;
+		char *b ;
+		b = (char*) malloc(digit * sizeof(char)) ;
+		intToStr(distance , b , 3) ;
+	  LCD_displayString(b) ;
+		
+		GPIO_PORTF_DATA_R = 0x08; // 1000 blink green led
+		delay(50);
+		
+		}
+	else {
+		int digit ;
+		int i ;
+		char *b ;
+		b = (char*) malloc(digit * sizeof(char)) ;
+		intToStr(distance , b , 3) ;
+	  LCD_displayString(b) ;
+		}
+		
+}
