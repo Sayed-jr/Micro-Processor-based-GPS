@@ -1,0 +1,22 @@
+void systick_init_1ms(){
+	NVIC_ST_CTRL_R = 0 ;  //disable systick 
+	NVIC_ST_RELOAD_R = 16000 - 1 ; // number of counts for 1 ms
+	NVIC_ST_CURRENT_R = 0 ; //any value to clear current register and clear count_flag
+	NVIC_ST_CTRL_R = 5 ; // bit0 & bit2 = 1
+}
+
+
+//delay function version 2 if you send double_delay = 4 & counts = 16000000 so you get 4s sec. delay
+void systick_init_50ms(){
+	NVIC_ST_CTRL_R = 0 ;  //disable systick 
+	NVIC_ST_RELOAD_R = (25000) - 1 ; // number of counts for 1 ms
+	NVIC_ST_CURRENT_R = 0 ; //any value to clear current register and clear count_flag
+	NVIC_ST_CTRL_R = 5 ; // bit0 & bit2 = 1
+}
+/*delay function version 2 if you send double_delay = 4 & counts = 16000000 so you get 4 sec. delay**/
+void systick_double_delay( int double_delay ){
+	int i ;
+	for ( i = 0 ; i < double_delay ; i++ ){
+		systick_init_1ms() ;
+	}
+}
