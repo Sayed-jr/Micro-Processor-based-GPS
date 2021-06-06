@@ -1,0 +1,37 @@
+/****UART***/
+	//UART_init for connecting microcontroller with PC & gps
+void UARTT_init(){
+	
+	uint32_t delay ;
+	SYSCTL_RCGCUART_R |= 0X41 ; //ENABLE UART0 &UART6
+	delay = 1 ;
+	SYSCTL_RCGCGPIO_R |= 0x41 ; //ENABLE PORT A CLK & B
+	delay = 2 ;
+	UART0_CTL_R = 0 ; //disable uart0
+	UART6_CTL_R = 0 ; //disable uart1
+	UART0_IBRD_R = 104 ; //integer baud rate ** 
+	UART0_FBRD_R = 11 ;  //fraction baud rate  **
+	UART6_IBRD_R = 104 ; //integer baud rate **
+	UART6_FBRD_R = 11 ;  //fraction baud rate  **
+	UART0_LCRH_R = 0x0060 ; // 8-bit word length & 1-bit stop & FIFO enaable
+	UART6_LCRH_R = 0x0060 ; // 8-bit word length & 1-bit stop & FIFO enaable
+	UART0_CTL_R = 0x0301 ;//enable uart & device TX and Rx & HSE = 0
+	UART6_CTL_R = 0x0301 ;//enable uart & device TX and Rx & HSE = 0
+GPIO_PORTA_PCTL_R = (GPIO_PORTA_PCTL_R&0xFFFFFF00)+0x00000011;
+	GPIO_PORTA_DEN_R |=0x02;
+	GPIO_PORTA_AFSEL_R |=0x02; // neednt
+	GPIO_PORTA_AMSEL_R &=~(0x02); //neednt	
+	//init_portA() ;
+	//init_portB() ;
+} 
+void URT0_transmitter(char data){
+  while((UART0_FR_R &(0x01<<5))!= 0);
+	  UART0_DR_R = data ;
+	
+}
+char URT6_Receiver(void){
+ char data ;
+	while((UART6_FR_R &(0x01<<4)) != 0); 
+	data = UART6_DR_R;
+	return data ;
+}
