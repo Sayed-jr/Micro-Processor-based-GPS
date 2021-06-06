@@ -1,0 +1,67 @@
+void init(void)
+{
+	delay(50); 
+	SYSCTL_RCGCGPIO_R |= 0x01; //init Port A&B clk
+	SYSCTL_RCGCGPIO_R |= 0x02; //init Port A&B clk
+//For Port B
+	delay(50) ;
+	GPIO_PORTB_LOCK_R=0x4C4F434B;
+	GPIO_PORTB_CR_R = 0xFF; // FOR ALL PINS I USE
+	GPIO_PORTB_DIR_R=0xFF; // to enable all the pins in port B
+	GPIO_PORTB_DEN_R=0XFF;// to make them degital
+	GPIO_PORTB_AFSEL_R =0; // neednt
+	GPIO_PORTB_PCTL_R = 0; //neednt
+	GPIO_PORTB_AMSEL_R = 0; //neednt
+	GPIO_PORTB_PUR_R = 0 ;
+//For Port A
+	//GPIO_PORTA	_CR_R = 0x1F; // FOR ALL PINS I USE
+	GPIO_PORTA_LOCK_R=0x4C4F434B;
+	GPIO_PORTA_CR_R = 0xF0; // FOR ALL PINS I USE
+	GPIO_PORTA_DIR_R=0xE0;
+	GPIO_PORTA_DEN_R=0xE0;
+	GPIO_PORTA_AFSEL_R =0; // neednt
+	GPIO_PORTA_PCTL_R = 0; //neednt
+	GPIO_PORTA_AMSEL_R = 0; //neednt
+	GPIO_PORTA_PUR_R = 0 ;
+	delay(2);
+	//LCD_command(0x03);	
+	delay(2);
+	LCD_command(0x06);	/* Increment cursor (shift cursor to right) */
+	delay(2);
+	LCD_command(0x0E);
+	delay(2);
+	LCD_command(0x38);	/* 2 line, 5*7 matrix in 4-bit mode */
+	delay(2);
+	LCD_command(0x01);	/* Clear display screen */
+	delay(2);
+}
+
+void init_portF()
+{
+	SYSCTL_RCGCGPIO_R |= 0x00000020; //init clock reg
+	delay(50);
+	GPIO_PORTF_LOCK_R = 0x4C4F434B;
+	GPIO_PORTF_CR_R = 0x1F; // FOR ALL PINS I USE
+	delay(50);
+	/* make the Switches as input and Leds are output*/
+	GPIO_PORTF_AFSEL_R = 0x00 ; // neednt
+	GPIO_PORTF_PCTL_R = 0x00000000 ; //neednt
+	GPIO_PORTF_AMSEL_R = 0x00 ; //neednt
+	
+	//Now we set the Directions/
+	GPIO_PORTF_DIR_R = 0x0E; // 
+	GPIO_PORTF_DEN_R = 0x1F;//
+	GPIO_PORTF_PUR_R = 0x11; // FOR THE SWITCHES AT PIN 0 AND 4
+}
+void init_portD(){
+	SYSCTL_RCGCGPIO_R |= 0x08 ;
+	delay(50) ;
+	GPIO_PORTD_LOCK_R = 0x4C4F434B;
+	GPIO_PORTD_CR_R = 0x1F; // FOR ALL PINS I USE
+	delay(50) ;
+	GPIO_PORTD_AFSEL_R |= 0x03 ; //PD0 & PD1 not GPIO
+	GPIO_PORTD_PCTL_R |= 0x00000011 ; // PD0 & PD1 configure for UART module
+	GPIO_PORTD_DIR_R |= 0X02 ;    // PD0 is Rx & pA1 is Tx 	
+	GPIO_PORTD_DEN_R |= 0X1F ;    //all pins are digital
+	GPIO_PORTD_AMSEL_R = 0 ; //no analog bins
+}
