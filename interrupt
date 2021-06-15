@@ -31,7 +31,7 @@ void init_portF()
   EnableInterrupts(); //enable interrupts
 	
 }
-void GPIOF_Handler(double x,double y)
+void GPIOF_Handler(void)
 {
   GPIO_PORTF_ICR_R |= 0x10; //clear interrupt signal of PF4 (switch)
   //what to do
