@@ -1,0 +1,37 @@
+// get latidude
+float get_lat(int *index[], char arr[]) {
+   // printf("Hello From LAT") ;
+ char lat[10];
+float lat2;
+	int i;
+	int q = 0;
+    int in;
+    
+	for ( in = index[1] + 1; in < index[2] ; in++) {
+
+		lat[q] = arr[in];
+		q++;
+
+	}
+    lat2 = atof(lat);
+
+	return lat2;
+  
+  // get longitude
+  
+float get_lon(int *index[], char arr[]) {
+  char lon[10];
+  float lon2;
+	int i;
+	int q = 0;
+  int in;
+    
+	for ( in = index[3] + 1; in < index[4] ; in++) {
+
+		lon[q] = arr[in];
+		q++;
+
+	}
+    lon2 = atof(lat);
+
+	return lon2;
