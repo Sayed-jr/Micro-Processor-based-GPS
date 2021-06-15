@@ -1,0 +1,37 @@
+float ad_lat(float lat ) {
+
+	float r;
+	float d;
+	float a;
+	float temp;
+	int h;
+	int whole;
+
+	h = (int)(lat); // the whole float lat to int --> 3006.136546 --> 3006
+	a =  ((float)(h)) / 100; // 3006 --> 30.06
+    temp = lat- h ; // 0.136546
+	whole = (int)(a); // 30.06 --> 30
+	d = (a - whole)*100+temp; // 30.06-30 --> 0.06
+
+	return (whole + d/60);
+
+}
+/*********************************************************************/
+double ad_lon(double lon) {
+
+    double r;
+    double d;
+    double a;
+    double temp;
+    int h;
+    int whole;
+
+    h = (int)(lon); // the whole float lat to int --> 3006.136546 --> 3006
+    temp = lon-h;   // 0.136546
+    a = ((double)(h)) / 100; // 3006 --> 30.06
+    whole = (int)(a); // 30.06 --> 30
+    d = (a - whole)*100+temp; // 30.06-30 --> 0.06
+
+    return (whole + (d/60));
+
+}
