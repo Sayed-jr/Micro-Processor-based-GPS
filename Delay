@@ -1,0 +1,6 @@
+void delay( uint32_t d ){
+int i , j ;
+for ( i = 0 ; i < d ; i++ ){
+for ( j = 0 ; j < 16000 ; j++ ){}
+}
+}
